@@ -1,0 +1,35 @@
+machine:
+  python:
+    version: 2.7.11
+  services:
+    - docker
+
+dependencies:
+  override:
+     - docker info
+     - docker build --rm=false -t larse514/tcfjvolunteers:$CIRCLE_SHA1 .
+  pre:
+     - pip install awscli
+     - aws configure set default.region us-west-2
+  post:
+     - npm install newman --global
+
+database:
+  override:
+    - mysql -u ubuntu circle_test < ci/volunteers-setup.sql
+
+test:
+  post:
+    - mocha
+    - docker run -d -p 3000:3000 --name tcfjvolunteers larse514/tcfjdonors:$CIRCLE_SHA1; sleep 10
+    - docker ps
+    - docker port tcfjvolunteers
+    - curl --retry 10 --retry-delay 5 http://localhost:3000/ | grep "OK"
+
+deployment:
+  development:
+    branch: development
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - sh ./deploy.sh $CIRCLE_SHA1 development
+      - newman run integration/TCFJ_Donors.postman_collection.json -e integration/TCFJ_CONTAINER_DEV.postman_environment.json --timeout-request 5000

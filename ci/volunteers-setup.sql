@@ -2,5 +2,5 @@ CREATE TABLE Volunteers ( volunteer_id INT NOT NULL AUTO_INCREMENT, volunteer_na
 
 );
 
-insert into tfcj_rds_db.Volunteers (volunteer_name , created_date ) values ("Alec Larsen", curdate());
-insert into tfcj_rds_db.Volunteers (volunteer_name , created_date ) values ("Andrew Larsen", curdate());
+insert into Volunteers (volunteer_name , created_date ) values ("Alec Larsen", curdate());
+insert into Volunteers (volunteer_name , created_date ) values ("Andrew Larsen", curdate());
