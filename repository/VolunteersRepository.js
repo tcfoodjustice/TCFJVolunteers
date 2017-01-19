@@ -4,7 +4,7 @@ var con  = mysql.createPool({
   connectionLimit : process.env.CONNECTIONLIMIT,
   host            : process.env.URL,//'tcfj-rds-db.cimnc2ecuxzw.us-west-2.rds.amazonaws.com',
   user            : process.env.USER,//'awsmaster',
-  password        : process.env.PASSWORD//'masterpwd3251',
+  password        : process.env.PASSWORD,//'masterpwd3251',
   database        : process.env.DBNAME//'tfcj_rds_db'
 });
 
