@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/larse514/TCFJVolunteers.git"
   },
+  "directories": {
+    "test": "test"
+  },
   "author": "TCFoodJustice",
   "license": "ISC",
   "bugs": {
