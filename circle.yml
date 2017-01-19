@@ -19,8 +19,9 @@ database:
     - mysql -u ubuntu circle_test < ci/volunteers-setup.sql
 
 test:
-  post:
+  override:
     - mocha
+  post:
     - docker run -d -p 3000:3000 --name tcfjvolunteers larse514/tcfjdonors:$CIRCLE_SHA1; sleep 10
     - docker ps
     - docker port tcfjvolunteers
