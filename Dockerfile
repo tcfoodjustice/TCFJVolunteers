@@ -1,19 +1,16 @@
-FROM centos:centos6
+FROM node:boron
 
-MAINTAINER andrew.larse514@gmail.com
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-# Enable EPEL for Node.js
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+# Install app dependencies
+COPY package.json /usr/src/app/
+RUN npm install
 
-#Install Node...
-RUN yum install -y npm
-
-# Copy app to /src
-COPY . /src
-
-# Install app and dependencies into /src
-RUN cd /src; npm install
+# Bundle app source
+COPY . /usr/src/app
 
 EXPOSE 3000
 
-CMD cd /src && npm start
+CMD [ "npm", "start" ]
