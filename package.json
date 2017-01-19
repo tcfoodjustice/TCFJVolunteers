@@ -1,0 +1,33 @@
+{
+  "name": "tcfj-volunteers",
+  "version": "1.0.0",
+  "description": "RESTful API for tcfoodjustice volunteer resources",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www",
+     "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larse514/TCFJVolunteers.git"
+  },
+  "author": "TCFoodJustice",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/larse514/TCFJVolunteers/issues"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.14.0",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0",
+    "mysql": "^2.12.0",
+    "node-mysql": "^0.4.2"
+  }
+  ,
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  }
+}
