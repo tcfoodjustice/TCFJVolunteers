@@ -16,8 +16,7 @@ dependencies:
 
 database:
   override:
-    - mysql -u ubuntu circle_test < ci/volunteers-setup.sql
-
+    - mysql -u ubuntu circle_test < ci/volunteers-setup.sql 
 test:
   override:
     - mocha
