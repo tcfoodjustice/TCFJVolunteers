@@ -5,9 +5,6 @@ machine:
     - docker
 
 dependencies:
-  override:
-     - docker info
-     - docker build --rm=false -t larse514/tcfjvolunteers:$CIRCLE_SHA1 .
   pre:
      - pip install awscli
      - aws configure set default.region us-west-2
@@ -22,6 +19,8 @@ test:
     - npm install
     - mocha --recursive
   post:
+    - docker info
+    - docker build --rm=false -t larse514/tcfjvolunteers:$CIRCLE_SHA1 .
     - docker run -d -p 3000:3000 --name tcfjvolunteers larse514/tcfjvolunteers:$CIRCLE_SHA1; sleep 10
     - docker ps
     - docker port tcfjvolunteers
