@@ -21,12 +21,13 @@ test:
   post:
     - docker info
     - docker build --rm=false -t larse514/tcfjvolunteers:$CIRCLE_SHA1 .
-    - docker run -d -p 3000:3000 --name tcfjvolunteers larse514/tcfjvolunteers:$CIRCLE_SHA1; sleep 10 \
+    - docker run -d -p 3000:3000 --name tcfjvolunteers larse514/tcfjvolunteers:$CIRCLE_SHA1 \
         -e CONNECTIONLIMIT=$CONNECTIONLIMIT \
         -e URL=$URL \
         -e USER=$USER \
         -e PASSWORD=$PASSWORD \
-        -e DBNAME=$DBNAME \
+        -e DBNAME=$DBNAME 
+    - sleep 10
     - docker ps
     - docker port tcfjvolunteers
     - docker logs tcfjvolunteers
