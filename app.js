@@ -15,8 +15,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', index);
-app.use('/users', users);
+app.use('/tcfjvolunteers/', index);
+app.use('/tcfjvolunteers/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -13,7 +13,7 @@ configure_aws_cli(){
 
 deploy_cluster() {
 
-    family="TCFJDonorsTask"
+    family="tcfjvolunteerstask"
 
     make_task_def
     register_definition
@@ -29,7 +29,7 @@ deploy_cluster() {
     echo "$count"
     echo "$revision"
     echo "$SERVICE_ARN"
-    currentTaskDefinition=$(aws ecs describe-services --cluster TCFJCluster --services tcfjvolunteers --query 'services[?serviceArn=="$SERVICE_ARN"].{taskDefinition:taskDefinition}')
+    currentTaskDefinition=$(aws ecs describe-services --cluster TCFJCluster --services tcfjvolunteers --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/tcfjvolunteers`].{taskDefinition:taskDefinition}')
     echo "$currentTaskDefinition"
     primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services tcfjvolunteers --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/tcfjvolunteers`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
     echo "$primaryRunningCount"
