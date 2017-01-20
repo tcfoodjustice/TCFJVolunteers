@@ -19,6 +19,7 @@ database:
     - mysql -u ubuntu circle_test < ci/volunteers-setup.sql 
 test:
   override:
+    - npm install
     - mocha --recursive
   post:
     - docker run -d -p 3000:3000 --name tcfjvolunteers larse514/tcfjvolunteers:$CIRCLE_SHA1; sleep 10
