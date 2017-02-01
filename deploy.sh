@@ -13,7 +13,7 @@ configure_aws_cli(){
 
 deploy_cluster() {
 
-    family="tcfjvolunteerstask"
+    family="TCFJVolunteersTask"
 
     make_task_def
     register_definition
