@@ -17,7 +17,7 @@ deploy_cluster() {
 
     make_task_def
     register_definition
-    if [[ $(aws ecs update-service --cluster TCFJCluster --service tcfjvolunteers --task-definition $revision | \
+    if [[ $(aws ecs update-service --cluster TCFJCluster --service volunteersservice --task-definition $revision | \
                    $JQ '.services[0].taskDefinition') != $revision ]]; then
         echo "Error updating service."
         return 1
@@ -29,14 +29,14 @@ deploy_cluster() {
     echo "$count"
     echo "$revision"
     echo "$SERVICE_ARN"
-    currentTaskDefinition=$(aws ecs describe-services --cluster TCFJCluster --services tcfjvolunteers --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/tcfjvolunteers`].{taskDefinition:taskDefinition}')
+    currentTaskDefinition=$(aws ecs describe-services --cluster TCFJCluster --services volunteersservice --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/volunteersservice`].{taskDefinition:taskDefinition}')
     echo "$currentTaskDefinition"
-    primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services tcfjvolunteers --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/tcfjvolunteers`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
+    primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services volunteersservice --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/volunteersservice`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
     echo "$primaryRunningCount"
 
     while [ $primaryRunningCount -lt 1 ]; do
         #refactor this to
-        primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services tcfjvolunteers --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/tcfjvolunteers`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
+        primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services volunteersservice --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/volunteersservice`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
         echo "Primary running count is: $primaryRunningCount"
         count=$((count + 1))
         echo "$count"
