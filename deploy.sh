@@ -6,6 +6,7 @@ JQ="jq --raw-output --exit-status"
 SHA1=$1
 env=$2
 configure_aws_cli(){
+    printenv
 	aws --version
 	aws configure set default.region us-west-2
 	aws configure set default.output json
@@ -68,7 +69,29 @@ make_task_def(){
 					\"containerPort\": 3000,
 					\"hostPort\": 3000
 				}
-			]
+			],
+			 \"environment\": [
+                {
+                  \"name\": \"CONNECTIONLIMIT\",
+                  \"value\": \"5\"
+                },
+                {
+                  \"name\": \"DBNAME\",
+                  \"value\": \"tfcj_rds_db\"
+                },
+                {
+                  \"name\": \"PASSWORD\",
+                  \"value\": \"masterpwd3251\"
+                },
+                {
+                  \"name\": \"URL\",
+                  \"value\": \"tcfj-rds-db.cimnc2ecuxzw.us-west-2.rds.amazonaws.com\"
+                },
+                {
+                  \"name\": \"USER\",
+                  \"value\": \"awsmaster\"
+                }
+              ],
 		}
 	]"
 	task_def=$(printf "$task_template")
