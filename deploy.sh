@@ -6,7 +6,6 @@ JQ="jq --raw-output --exit-status"
 SHA1=$1
 env=$2
 configure_aws_cli(){
-    printenv
 	aws --version
 	aws configure set default.region us-west-2
 	aws configure set default.output json
@@ -30,9 +29,11 @@ deploy_cluster() {
     echo "$count"
     echo "$revision"
     echo "$SERVICE_ARN"
-    currentTaskDefinition=$(aws ecs describe-services --cluster TCFJCluster --services volunteersservice --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/volunteersservice`].{taskDefinition:taskDefinition}')
+    currentTaskDefinition=$(aws ecs describe-services --cluster TCFJCluster --services volunteersservice --query \
+                'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/volunteersservice`].{taskDefinition:taskDefinition}')
     echo "$currentTaskDefinition"
-    primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services volunteersservice --query 'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/volunteersservice`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
+    primaryRunningCount=$( aws ecs describe-services --cluster TCFJCluster --services volunteersservice --query \
+                'services[?serviceArn==`arn:aws:ecs:us-west-2:417615409974:service/volunteersservice`].[deployments[?status==`PRIMARY`].{runningCount:runningCount}]' --output text)
     echo "$primaryRunningCount"
 
     while [ $primaryRunningCount -lt 1 ]; do
@@ -91,7 +92,7 @@ make_task_def(){
                   \"name\": \"USER\",
                   \"value\": \"awsmaster\"
                 }
-              ],
+              ]
 		}
 	]"
 	task_def=$(printf "$task_template")
