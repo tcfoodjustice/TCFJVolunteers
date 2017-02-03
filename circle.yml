@@ -38,4 +38,4 @@ deployment:
       - sh ./deploy.sh $CIRCLE_SHA1 development
       # give a couple secodns to finish deploy
       - sleep 10
-      - newman run integration/TCFJ_Volunteers.postman_collection.json -e integration/VOLUNTEERS_TCFJ_DEV.postman_environment.json --timeout-request 5000
+      - newman run integration/TCFJ_Volunteers.postman_collection.json -e integration/TCFJ_CONTAINER_DEV.postman_environment.json --timeout-request 5000
