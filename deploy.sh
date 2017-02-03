@@ -13,7 +13,7 @@ configure_aws_cli(){
 
 deploy_cluster() {
 
-    family="TCFJVolunteersTask"
+    family="TCFJVolunteerTask"
 
     make_task_def
     register_definition
@@ -58,7 +58,7 @@ deploy_cluster() {
 make_task_def(){
 	task_template="[
 		{
-			\"name\": \"TCFJVolunteersContainer\",
+			\"name\": \"TCFJVolunteerContainer\",
 			\"image\": \"larse514/tcfjvolunteers:$SHA1\",
 			\"essential\": true,
 			\"memory\": 218,
